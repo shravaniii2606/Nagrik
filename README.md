@@ -1,5 +1,5 @@
-# Smart Bharat - AI-Powered Civic Companion
-
+# Nagrik - Smart Bharat AI-Powered Civic Companion
+**Live Demo:**https://nagrik-sigma.vercel.app/
 ## Problem
 Citizens often struggle to understand which government service applies to their situation, which documents are required, and how to report or track local public issues. Smart Bharat is a GenAI-powered civic companion that simplifies everyday civic interactions through service discovery, personalized AI guidance, complaint reporting, status tracking, and multilingual assistance.
 
