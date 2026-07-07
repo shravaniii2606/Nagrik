@@ -137,6 +137,45 @@ Fill `frontend/.env` with:
 - Focus states are visible through global `:focus-visible` styling and Tailwind focus rings.
 - Text colors use high-contrast slate, blue, green, amber, and red combinations on light backgrounds.
 
+ ## Running Tests
+
+### Backend
+
+1. Install the development dependencies:
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+> If `pytest` was added directly to `requirements.txt`, use:
+>
+> ```bash
+> pip install -r requirements.txt
+> ```
+
+2. Run the test suite:
+
+```bash
+pytest tests/
+```
+
+All backend tests should pass successfully.
+
+### Frontend (if included)
+
+Install dependencies and run the frontend tests:
+
+```bash
+npm test
+```
+
+or, if using Vite/Vitest:
+
+```bash
+npm run test
+```
+
+
 PROMPTS/ contains the structured prompts used to guide AI-assisted development of this project, documenting our engineering process
 UI/UX:
 <img width="2560" height="1336" alt="image" src="https://github.com/user-attachments/assets/ea1e198e-c5b3-4e63-a0ed-6b9f54cf8b59" />
