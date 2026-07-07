@@ -138,3 +138,9 @@ Fill `frontend/.env` with:
 - Text colors use high-contrast slate, blue, green, amber, and red combinations on light backgrounds.
 
 PROMPTS/ contains the structured prompts used to guide AI-assisted development of this project, documenting our engineering process
+UI/UX:
+<img width="2560" height="1336" alt="image" src="https://github.com/user-attachments/assets/ea1e198e-c5b3-4e63-a0ed-6b9f54cf8b59" />
+<img width="2560" height="1346" alt="image" src="https://github.com/user-attachments/assets/6bcfaeec-21c6-455a-97fa-e1c0e6a49c8f" />
+<img width="2560" height="1324" alt="image" src="https://github.com/user-attachments/assets/9314b5bf-d609-4492-9c08-841d8c81abe7" />
+<img width="2560" height="1270" alt="image" src="https://github.com/user-attachments/assets/600db8c3-b790-4f89-be1b-191031dc6f6f" />
+<img width="1708" height="1110" alt="image" src="https://github.com/user-attachments/assets/544f12d0-7a83-48ff-89dc-e28da8dc3dc6" />
