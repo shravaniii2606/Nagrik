@@ -2,7 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Ensure visible focus outlines for keyboard navigation (accessibility) */
+html {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
 :focus-visible {
   outline: 2px solid #2563eb;
   outline-offset: 2px;

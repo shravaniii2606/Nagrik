@@ -1,0 +1,92 @@
+export const GOVERNMENT_SERVICES = [
+  {
+    name: 'Passport',
+    description: 'Apply for a new passport, renew an existing one, or check document needs.',
+    category: 'Identity',
+    icon: '/service-icons/identity.svg',
+  },
+  {
+    name: 'Birth Certificate',
+    description: 'Understand registration steps and documents for a municipal birth certificate.',
+    category: 'Certificate',
+    icon: '/service-icons/certificate.svg',
+  },
+  {
+    name: 'Aadhaar Card',
+    description: 'Get help with enrollment, updates, address proof, and appointment preparation.',
+    category: 'Identity',
+    icon: '/service-icons/identity.svg',
+  },
+  {
+    name: 'Ration Card',
+    description: 'Find eligibility basics, family document requirements, and application next steps.',
+    category: 'Welfare',
+    icon: '/service-icons/welfare.svg',
+  },
+  {
+    name: 'Voter ID',
+    description: 'Prepare for voter registration, correction, address change, or status checks.',
+    category: 'Identity',
+    icon: '/service-icons/identity.svg',
+  },
+  {
+    name: 'Driving License',
+    description: 'Learn the learner license, driving test, renewal, and document process.',
+    category: 'Transport',
+    icon: '/service-icons/transport.svg',
+  },
+  {
+    name: 'PAN Card',
+    description: 'Get plain-language help for PAN application, correction, or reprint documents.',
+    category: 'Tax',
+    icon: '/service-icons/tax.svg',
+  },
+  {
+    name: 'Income Certificate',
+    description: 'Prepare the income proof, identity proof, and local application details.',
+    category: 'Certificate',
+    icon: '/service-icons/certificate.svg',
+  },
+  {
+    name: 'Caste Certificate',
+    description: 'Understand common supporting proofs and local authority verification steps.',
+    category: 'Certificate',
+    icon: '/service-icons/certificate.svg',
+  },
+  {
+    name: 'Domicile Certificate',
+    description: 'Check proof of residence and supporting documents for domicile certification.',
+    category: 'Certificate',
+    icon: '/service-icons/certificate.svg',
+  },
+  {
+    name: 'Property Tax',
+    description: 'Get help with property ID, payment, receipts, and basic municipal queries.',
+    category: 'Municipal',
+    icon: '/service-icons/municipal.svg',
+  },
+  {
+    name: 'Water Connection',
+    description: 'Prepare ownership or tenancy proof and understand connection request steps.',
+    category: 'Utility',
+    icon: '/service-icons/utility.svg',
+  },
+  {
+    name: 'Electricity Connection',
+    description: 'Review documents and safety requirements for a new electricity connection.',
+    category: 'Utility',
+    icon: '/service-icons/utility.svg',
+  },
+  {
+    name: 'Ayushman Bharat',
+    description: 'Check common eligibility and documents for health benefit assistance.',
+    category: 'Welfare',
+    icon: '/service-icons/welfare.svg',
+  },
+  {
+    name: 'PM-Kisan',
+    description: 'Understand farmer registration, land record, Aadhaar, and bank detail needs.',
+    category: 'Welfare',
+    icon: '/service-icons/welfare.svg',
+  },
+]

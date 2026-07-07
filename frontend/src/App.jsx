@@ -1,20 +1,27 @@
-import { Routes, Route } from 'react-router-dom'
-import Home from './pages/Home.jsx'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import AppShell from './components/AppShell.jsx'
+import ChatPage from './pages/ChatPage.jsx'
+import ComplaintsPage from './pages/ComplaintsPage.jsx'
+import ProfilePage from './pages/ProfilePage.jsx'
+import ReportIssuePage from './pages/ReportIssuePage.jsx'
+import ServicesPage from './pages/ServicesPage.jsx'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <AppShell />,
+    children: [
+      { index: true, element: <ServicesPage /> },
+      { path: 'chat', element: <ChatPage /> },
+      { path: 'report', element: <ReportIssuePage /> },
+      { path: 'complaints', element: <ComplaintsPage /> },
+      { path: 'profile', element: <ProfilePage /> },
+    ],
+  },
+])
 
 function App() {
-  return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      <header className="border-b bg-white px-6 py-4">
-        <h1 className="text-xl font-semibold">Hackathon Project</h1>
-      </header>
-
-      <main className="mx-auto max-w-4xl px-6 py-8">
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </main>
-    </div>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App
