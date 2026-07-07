@@ -8,6 +8,44 @@ The app uses a React frontend, FastAPI backend, Supabase Auth/Database/Storage, 
 
 Security and accessibility are built into the main flow: the frontend only uses the Supabase anon key, the backend validates authenticated bearer tokens before using the Supabase service key, inputs and images are validated server-side, and all user-owned tables have RLS policies.
 
+## Prompt Workflow / Strategy
+
+Given the solo, time-boxed nature of this hackathon, we used a structured, staged 
+prompting strategy with our AI coding agent (Codex/Antigravity) rather than ad-hoc 
+requests — treating prompts as versioned engineering artifacts, stored in `PROMPTS/`.
+
+**1. Standing constraints prompt (`01_build_phase_prompt.md`)**
+Before any code was written, we established a persistent instruction set covering 
+the four judging criteria (Code Quality, Security, Accessibility, Problem Statement 
+Alignment) as non-negotiable rules applied to every file generated - not a one-time 
+request, but a standing contract with the AI agent for the entire build session.
+
+**2. Feature-specification prompts**
+Each feature (Gov Services Browser, AI Chatbot with RAG-lite grounding, Report Issue, 
+Track Complaints, Application Tracking, Profile/Language) was specified as its own 
+structured prompt: data model first, then endpoint logic, then UI - enforcing a 
+consistent build order (security/data layer before polish) across every feature 
+rather than letting the agent freelance the architecture.
+
+**3. Grounding layer prompt**
+Rather than relying on the LLM's general knowledge for civic information (risking 
+hallucinated document requirements), we authored a curated JSON knowledge base 
+(`civic_services.json`) and explicitly instructed the agent to ground chatbot 
+responses in this data first, falling back to general reasoning only when a query 
+fell outside its scope.
+
+**4. End-of-session audit prompt (`02_audit_phase_prompt.md`)**
+Before submission, we ran a dedicated audit pass instructing the agent to review 
+its own output file-by-file against the same four criteria, flag violations with 
+exact file/line references, and fix them directly - catching issues like missing 
+RLS policies or leftover console.logs before they reached the final commit.
+
+**Why this approach:** treating AI-assisted development as a structured pipeline 
+(constraints → build → ground → audit) rather than a single unstructured chat 
+session let us maintain consistency across a multi-feature build under a hard time 
+constraint, and gives full traceability - every architectural decision in this repo 
+can be traced back to an explicit, saved prompt rather than an undocumented one-off 
+exchange.
 ## Tech Stack
 - Frontend: React, Vite, Tailwind CSS, Supabase JS
 - Backend: FastAPI, Pydantic, SlowAPI, HTTPX
@@ -98,3 +136,5 @@ Fill `frontend/.env` with:
 - The language selector is visible in the header after sign-in and also available in the profile form.
 - Focus states are visible through global `:focus-visible` styling and Tailwind focus rings.
 - Text colors use high-contrast slate, blue, green, amber, and red combinations on light backgrounds.
+
+PROMPTS/ contains the structured prompts used to guide AI-assisted development of this project, documenting our engineering process
