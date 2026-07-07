@@ -33,6 +33,7 @@ class ChatResponse(BaseModel):
     intent: ChatIntent
     answer: str = Field(..., min_length=1, max_length=1800)
     checklist: list[ChecklistItem] = Field(default_factory=list)
+    application_form_url: str | None = Field(default=None, max_length=500)
     recommended_services: list[str] = Field(default_factory=list, max_length=5)
 
 

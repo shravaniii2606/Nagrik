@@ -63,6 +63,21 @@ export function uploadChecklistDocument(file) {
   })
 }
 
+export function fetchApplications(serviceName) {
+  const query = serviceName ? `?service_name=${encodeURIComponent(serviceName)}` : ''
+  return request(`/api/applications${query}`)
+}
+
+export function createApplication(serviceName, documents) {
+  return request('/api/applications', {
+    method: 'POST',
+    body: JSON.stringify({
+      service_name: serviceName,
+      documents,
+    }),
+  })
+}
+
 export function createComplaint(description, image) {
   const formData = new FormData()
   formData.append('description', description)

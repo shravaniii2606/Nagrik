@@ -1,111 +1,42 @@
-SERVICE_NAMES = [
-    "Passport",
-    "Birth Certificate",
-    "Aadhaar Card",
-    "Ration Card",
-    "Voter ID",
-    "Driving License",
-    "PAN Card",
-    "Income Certificate",
-    "Caste Certificate",
-    "Domicile Certificate",
-    "Property Tax",
-    "Water Connection",
-    "Electricity Connection",
-    "Ayushman Bharat",
-    "PM-Kisan",
-]
+import json
+from functools import lru_cache
+from pathlib import Path
+from typing import Any
 
+DATA_PATH = Path(__file__).resolve().parents[1] / "data" / "civic_services.json"
+
+
+@lru_cache
+def load_civic_services() -> list[dict[str, Any]]:
+    with DATA_PATH.open(encoding="utf-8") as file:
+        return json.load(file)
+
+
+def _service_map() -> dict[str, dict[str, Any]]:
+    return {service["name"]: service for service in load_civic_services()}
+
+
+def get_service(name: str | None) -> dict[str, Any] | None:
+    if not name:
+        return None
+    return _service_map().get(name)
+
+
+def get_application_form_url(name: str | None) -> str | None:
+    service = get_service(name)
+    if not service:
+        return None
+    return service.get("application_form_url")
+
+
+def get_required_documents(name: str | None) -> list[str]:
+    service = get_service(name)
+    if not service:
+        return []
+    return [str(item) for item in service.get("document_checklist", [])]
+
+
+SERVICE_NAMES = [service["name"] for service in load_civic_services()]
 DOCUMENT_CHECKLISTS = {
-    "Passport": [
-        "Proof of address",
-        "Proof of date of birth",
-        "Identity proof",
-        "Recent passport-size photograph",
-    ],
-    "Birth Certificate": [
-        "Hospital birth record or discharge summary",
-        "Parent identity proof",
-        "Parent address proof",
-        "Application form from local authority",
-    ],
-    "Aadhaar Card": [
-        "Proof of identity",
-        "Proof of address",
-        "Proof of date of birth",
-        "Mobile number for OTP verification",
-    ],
-    "Ration Card": [
-        "Family identity proofs",
-        "Address proof",
-        "Income certificate if required by state",
-        "Passport-size photographs of family head",
-    ],
-    "Voter ID": [
-        "Age proof",
-        "Address proof",
-        "Passport-size photograph",
-        "Form 6 application details",
-    ],
-    "Driving License": [
-        "Learner license",
-        "Age proof",
-        "Address proof",
-        "Passport-size photograph",
-        "Medical certificate if applicable",
-    ],
-    "PAN Card": [
-        "Identity proof",
-        "Address proof",
-        "Date of birth proof",
-        "Passport-size photograph",
-    ],
-    "Income Certificate": [
-        "Identity proof",
-        "Address proof",
-        "Salary slip or income declaration",
-        "Affidavit if required by state",
-    ],
-    "Caste Certificate": [
-        "Identity proof",
-        "Address proof",
-        "Parent caste certificate if available",
-        "Community proof or local authority certificate",
-    ],
-    "Domicile Certificate": [
-        "Identity proof",
-        "Address proof",
-        "Residence proof for required period",
-        "School or employment record if applicable",
-    ],
-    "Property Tax": [
-        "Property identification number",
-        "Previous tax receipt if available",
-        "Ownership document",
-        "Registered mobile number",
-    ],
-    "Water Connection": [
-        "Identity proof",
-        "Property ownership or tenancy proof",
-        "Address proof",
-        "No-objection certificate if applicable",
-    ],
-    "Electricity Connection": [
-        "Identity proof",
-        "Property ownership or tenancy proof",
-        "Address proof",
-        "Electrical wiring test report if required",
-    ],
-    "Ayushman Bharat": [
-        "Aadhaar Card",
-        "Ration Card or family ID",
-        "Mobile number",
-        "Eligibility proof if requested",
-    ],
-    "PM-Kisan": [
-        "Aadhaar Card",
-        "Land ownership record",
-        "Bank account details",
-        "Mobile number",
-    ],
+    service["name"]: service["document_checklist"] for service in load_civic_services()
 }

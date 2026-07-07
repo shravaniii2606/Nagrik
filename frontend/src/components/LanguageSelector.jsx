@@ -16,6 +16,12 @@ function LanguageSelector() {
     try {
       await updateProfile({
         name: profile?.name || 'Citizen',
+        birth_date: profile?.birth_date || null,
+        gender: profile?.gender || null,
+        address: profile?.address || null,
+        city: profile?.city || null,
+        state: profile?.state || null,
+        pincode: profile?.pincode || null,
         language_pref: nextLanguage,
         location: profile?.location || null,
       })

@@ -18,7 +18,7 @@ function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`rounded-md px-4 py-2 font-medium transition
+      className={`inline-flex items-center justify-center rounded-md px-4 py-2 font-medium transition
         disabled:cursor-not-allowed disabled:opacity-60
         focus-visible:ring-2 focus-visible:ring-offset-2
         ${variantClasses[variant]} ${className}`}

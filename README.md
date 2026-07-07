@@ -21,7 +21,9 @@ Security and accessibility are built into the main flow: the frontend only uses 
 1. Create a Supabase project.
 2. Enable email magic-link auth in Supabase Auth.
 3. Open the SQL editor and run `backend/app/db/supabase_schema.sql`.
-4. Confirm RLS is enabled on `public.users` and `public.complaints`.
+   If your `users` table already existed before the sign-up details were added, also run `backend/app/db/profile_details_migration.sql`.
+   If your database existed before application tracking was added, also run `backend/app/db/applications_migration.sql`.
+4. Confirm RLS is enabled on `public.users`, `public.complaints`, and `public.applications`.
 5. Confirm storage buckets `complaint-images` and `document-uploads` exist and are private.
 
 ### Backend
@@ -64,14 +66,15 @@ Fill `frontend/.env` with:
 | Clicking a service opens chat with service context | Each service card links to `/chat?service=...`. `ChatPage.jsx` reads that query value and automatically sends the first contextual message to the backend. |
 | Single AI chat endpoint with optional `service_context` | `backend/app/routes/chat.py` exposes `POST /api/chat`. `backend/app/services/llm_service.py` includes the selected service in the system prompt and requests structured JSON output. |
 | Intent classification: document checklist, simple Q&A, service recommendation | `ChatResponse` restricts intent to `document_checklist`, `simple_qna`, or `service_recommendation`. The frontend renders checklist uploads and recommendation links based on that intent. |
-| Document checklist upload to Supabase Storage | `ChecklistBlock.jsx` lets users mark documents uploaded and upload JPG/PNG files. `POST /api/chat/document-upload` validates type/size and stores files in the private `document-uploads` bucket. |
+| Document checklist upload to Supabase Storage | `ChecklistBlock.jsx` lets users upload JPG/PNG files and shows a real Done button after every required document has uploaded. `POST /api/chat/document-upload` validates type/size and stores files in the private `document-uploads` bucket. |
+| Application session flow | `backend/app/routes/applications.py` and `backend/app/services/application_service.py` create owner-scoped applications only after the backend verifies all required documents for that service. `ChatPage.jsx` checks existing applications before starting a fresh checklist and renders `ApplicationStatusView.jsx` with timeline and uploaded document links. |
 | LLM key kept backend-only | OpenRouter keys appear only in `backend/.env.example` and backend config. The frontend has only Supabase anon and API URL variables. |
 | Respond in selected profile language | `ProfilePage.jsx` and `LanguageSelector.jsx` save English/Hindi/Marathi preference. The chat route loads the saved preference and passes it to the LLM prompt. |
 | Report issue form | `ReportIssuePage.jsx` collects required description and optional image. The backend sanitizes description, validates JPG/PNG max 5MB, classifies the category, and saves to Supabase. |
 | Complaint category classification | `llm_service.py` classifies complaints as pothole, garbage, water, electricity, or other before `complaints_service.py` stores the row. |
 | Track complaints timeline | `ComplaintsPage.jsx` loads only the signed-in user's complaints and renders each as a vertical Submitted -> In Review -> Resolved timeline. |
-| Profile and language preference | `ProfilePage.jsx` stores name, language preference, and optional location in the `users` table through `backend/app/routes/profile.py`. |
-| Supabase schema with RLS policies | `backend/app/db/supabase_schema.sql` creates `users` and `complaints`, enables RLS, defines own-row profile policies, lets users create/read only their own complaints, and adds private storage policies. |
+| Profile and language preference | `LandingPage.jsx` and `AuthPanel.jsx` collect email, name, birth date, gender, address, city, state, and pincode during sign-up. `ProfilePage.jsx` lets users edit those fields plus language preference and optional location in the `users` table through `backend/app/routes/profile.py`. |
+| Supabase schema with RLS policies | `backend/app/db/supabase_schema.sql` creates `users`, `complaints`, and `applications`, enables RLS, defines own-row profile/application policies, lets users create/read only their own complaints, and adds private storage policies. |
 | Existing project structure | Backend code is split across `routes`, `services`, `models`, `core`, and `db`. Frontend code is split across `pages`, `components`, and `lib`. |
 
 ## Security Notes

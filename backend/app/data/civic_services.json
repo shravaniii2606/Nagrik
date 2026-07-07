@@ -1,0 +1,153 @@
+[
+  {
+    "name": "Passport",
+    "application_form_url": "https://www.passportindia.gov.in/AppOnlineProject/welcomeLink",
+    "document_checklist": [
+      "Proof of address",
+      "Proof of date of birth",
+      "Identity proof",
+      "Recent passport-size photograph"
+    ]
+  },
+  {
+    "name": "Birth Certificate",
+    "application_form_url": "https://serviceonline.gov.in/",
+    "document_checklist": [
+      "Hospital birth record or discharge summary",
+      "Parent identity proof",
+      "Parent address proof",
+      "Application form from local authority"
+    ]
+  },
+  {
+    "name": "Aadhaar Card",
+    "application_form_url": "https://myaadhaar.uidai.gov.in/",
+    "document_checklist": [
+      "Proof of identity",
+      "Proof of address",
+      "Proof of date of birth",
+      "Mobile number for OTP verification"
+    ]
+  },
+  {
+    "name": "Ration Card",
+    "application_form_url": "https://nfsa.gov.in/",
+    "document_checklist": [
+      "Family identity proofs",
+      "Address proof",
+      "Income certificate if required by state",
+      "Passport-size photographs of family head"
+    ]
+  },
+  {
+    "name": "Voter ID",
+    "application_form_url": "https://voters.eci.gov.in/",
+    "document_checklist": [
+      "Age proof",
+      "Address proof",
+      "Passport-size photograph",
+      "Form 6 application details"
+    ]
+  },
+  {
+    "name": "Driving License",
+    "application_form_url": "https://sarathi.parivahan.gov.in/sarathiservice/stateSelection.do",
+    "document_checklist": [
+      "Learner license",
+      "Age proof",
+      "Address proof",
+      "Passport-size photograph",
+      "Medical certificate if applicable"
+    ]
+  },
+  {
+    "name": "PAN Card",
+    "application_form_url": "https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html",
+    "document_checklist": [
+      "Identity proof",
+      "Address proof",
+      "Date of birth proof",
+      "Passport-size photograph"
+    ]
+  },
+  {
+    "name": "Income Certificate",
+    "application_form_url": "https://serviceonline.gov.in/",
+    "document_checklist": [
+      "Identity proof",
+      "Address proof",
+      "Salary slip or income declaration",
+      "Affidavit if required by state"
+    ]
+  },
+  {
+    "name": "Caste Certificate",
+    "application_form_url": "https://serviceonline.gov.in/",
+    "document_checklist": [
+      "Identity proof",
+      "Address proof",
+      "Parent caste certificate if available",
+      "Community proof or local authority certificate"
+    ]
+  },
+  {
+    "name": "Domicile Certificate",
+    "application_form_url": "https://serviceonline.gov.in/",
+    "document_checklist": [
+      "Identity proof",
+      "Address proof",
+      "Residence proof for required period",
+      "School or employment record if applicable"
+    ]
+  },
+  {
+    "name": "Property Tax",
+    "application_form_url": "https://serviceonline.gov.in/",
+    "document_checklist": [
+      "Property identification number",
+      "Previous tax receipt if available",
+      "Ownership document",
+      "Registered mobile number"
+    ]
+  },
+  {
+    "name": "Water Connection",
+    "application_form_url": "https://serviceonline.gov.in/",
+    "document_checklist": [
+      "Identity proof",
+      "Property ownership or tenancy proof",
+      "Address proof",
+      "No-objection certificate if applicable"
+    ]
+  },
+  {
+    "name": "Electricity Connection",
+    "application_form_url": "https://serviceonline.gov.in/",
+    "document_checklist": [
+      "Identity proof",
+      "Property ownership or tenancy proof",
+      "Address proof",
+      "Electrical wiring test report if required"
+    ]
+  },
+  {
+    "name": "Ayushman Bharat",
+    "application_form_url": "https://beneficiary.nha.gov.in/",
+    "document_checklist": [
+      "Aadhaar Card",
+      "Ration Card or family ID",
+      "Mobile number",
+      "Eligibility proof if requested"
+    ]
+  },
+  {
+    "name": "PM-Kisan",
+    "application_form_url": "https://pmkisan.gov.in/RegistrationFormNew.aspx",
+    "document_checklist": [
+      "Aadhaar Card",
+      "Land ownership record",
+      "Bank account details",
+      "Mobile number"
+    ]
+  }
+]

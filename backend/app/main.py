@@ -6,7 +6,7 @@ from slowapi import _rate_limit_exceeded_handler
 
 from app.core.config import settings
 from app.core.rate_limit import limiter
-from app.routes import chat, complaints, profile
+from app.routes import applications, chat, complaints, profile
 
 app = FastAPI(title="Smart Bharat API")
 app.state.limiter = limiter
@@ -24,6 +24,7 @@ app.add_middleware(
 app.include_router(chat.router)
 app.include_router(complaints.router)
 app.include_router(profile.router)
+app.include_router(applications.router)
 
 
 @app.get("/api/health")

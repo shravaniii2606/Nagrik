@@ -6,7 +6,11 @@ import httpx
 from app.core.config import settings
 from app.models.chat import ChatResponse
 from app.models.complaints import ComplaintCategory
-from app.services.civic_services import DOCUMENT_CHECKLISTS, SERVICE_NAMES
+from app.services.civic_services import (
+    DOCUMENT_CHECKLISTS,
+    SERVICE_NAMES,
+    get_application_form_url,
+)
 
 CHAT_INTENTS = {"document_checklist", "simple_qna", "service_recommendation"}
 COMPLAINT_CATEGORIES = {"pothole", "garbage", "water", "electricity", "other"}
@@ -36,6 +40,7 @@ def _fallback_chat_response(
                 f"I will keep the response simple and can continue in {language_pref}."
             ),
             checklist=checklist,
+            application_form_url=get_application_form_url(service_context),
             recommended_services=[service_name] if service_context else [],
         )
 
@@ -70,12 +75,40 @@ def _extract_json(content: str) -> dict[str, Any]:
         return json.loads(content[start : end + 1])
 
 
-def _normalize_chat_payload(payload: dict[str, Any]) -> ChatResponse:
+def _resolve_application_form_url(
+    intent: str,
+    service_context: str | None,
+    recommended_services: list[Any],
+) -> str | None:
+    if intent != "document_checklist":
+        return None
+
+    if service_context:
+        return get_application_form_url(service_context)
+
+    for service_name in recommended_services:
+        form_url = get_application_form_url(str(service_name))
+        if form_url:
+            return form_url
+
+    return None
+
+
+def _normalize_chat_payload(
+    payload: dict[str, Any],
+    service_context: str | None,
+) -> ChatResponse:
     intent = payload.get("intent")
     if intent not in CHAT_INTENTS:
         intent = "simple_qna"
 
     checklist = payload.get("checklist") if isinstance(payload.get("checklist"), list) else []
+    if intent == "document_checklist" and service_context in DOCUMENT_CHECKLISTS:
+        checklist = [
+            {"label": item, "note": "Upload a clear JPG or PNG copy when available."}
+            for item in DOCUMENT_CHECKLISTS[service_context]
+        ]
+
     recommended_services = payload.get("recommended_services")
     if not isinstance(recommended_services, list):
         recommended_services = []
@@ -84,6 +117,11 @@ def _normalize_chat_payload(payload: dict[str, Any]) -> ChatResponse:
         intent=intent,
         answer=str(payload.get("answer") or "I could not generate a complete answer."),
         checklist=checklist[:8],
+        application_form_url=_resolve_application_form_url(
+            intent,
+            service_context,
+            recommended_services,
+        ),
         recommended_services=[str(item) for item in recommended_services[:5]],
     )
 
@@ -104,7 +142,8 @@ def _chat_system_prompt(service_context: str | None, language_pref: str) -> str:
         f"Known services: {service_list}. "
         "Return only JSON with keys: intent, answer, checklist, recommended_services. "
         "intent must be document_checklist, simple_qna, or service_recommendation. "
-        "checklist must be an array of objects with label and note."
+        "checklist must be an array of objects with label and note. "
+        "Do not invent application URLs; the backend will attach official form links."
     )
 
 
@@ -143,7 +182,7 @@ async def generate_chat_response(
         response.raise_for_status()
 
     content = response.json()["choices"][0]["message"]["content"]
-    return _normalize_chat_payload(_extract_json(content))
+    return _normalize_chat_payload(_extract_json(content), service_context)
 
 
 async def classify_complaint_category(description: str) -> ComplaintCategory:

@@ -3,10 +3,16 @@ import { GOVERNMENT_SERVICES } from '../lib/services.js'
 
 function ServicesPage() {
   return (
-    <div className="space-y-6">
-      <section aria-labelledby="services-heading" className="space-y-3">
+    <div className="space-y-7">
+      <section
+        aria-labelledby="services-heading"
+        className="rounded-md border border-slate-200 bg-white p-5 shadow-sm"
+      >
         <div className="max-w-3xl">
-          <h2 id="services-heading" className="text-2xl font-bold text-slate-950">
+          <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
+            Service discovery
+          </p>
+          <h2 id="services-heading" className="mt-2 text-2xl font-bold text-slate-950">
             Government services browser
           </h2>
           <p className="mt-2 text-slate-700">
@@ -27,7 +33,7 @@ function ServicesPage() {
                 <img
                   src={service.icon}
                   alt={`${service.name} service icon`}
-                  className="h-12 w-12 flex-none"
+                  className="h-12 w-12 flex-none rounded-md"
                 />
                 <div>
                   <p className="text-xs font-semibold uppercase text-blue-800">{service.category}</p>
