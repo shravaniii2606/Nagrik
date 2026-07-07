@@ -97,6 +97,12 @@ Fill `frontend/.env` with:
 - `VITE_SUPABASE_URL`
 - `VITE_SUPABASE_ANON_KEY`
 
+## Running Tests
+```bash
+cd backend
+pytest tests/
+```
+
 ## Requirement Alignment
 | Requirement | How this project addresses it |
 |---|---|

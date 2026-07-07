@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, File, Form, Request, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile, status
 
 from app.core.auth import CurrentUser, get_current_user
 from app.core.rate_limit import limiter
@@ -26,10 +26,16 @@ async def submit_complaint(
     description: Annotated[str, Form(..., min_length=10, max_length=1000)],
     image: Annotated[UploadFile | None, File()] = None,
 ) -> ComplaintOut:
-    sanitized_description = require_sanitized_text(
-        description,
-        "description",
-        min_length=10,
-        max_length=1000,
-    )
+    try:
+        sanitized_description = require_sanitized_text(
+            description,
+            "description",
+            min_length=10,
+            max_length=1000,
+        )
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=str(exc),
+        ) from exc
     return await create_complaint(current_user.id, sanitized_description, image)
